@@ -1,0 +1,4 @@
+line 1: plain text fixture
+line 2: with a tab	inside
+line 3: 中文内容
+line 4: end

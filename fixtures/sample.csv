@@ -1,0 +1,4 @@
+name,count,ratio,note
+alpha,1,0.5,"quoted, comma"
+beta,2,0.75,中文备注
+gamma,3,1.0,

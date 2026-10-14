@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <title>脚本绘制图表夹具</title>
+    <!--
+      这份夹具专门用来守住"HTML 预览会执行文档脚本"这条能力。
+      它刻意不依赖任何 CDN 或外部文件：图形只能由页面里那段内联脚本画出来，
+      所以一张空 canvas 就说明预览退回了不执行脚本的静态净化模式。
+    -->
+    <style>
+      body { font-family: system-ui, sans-serif; margin: 24px; }
+      .chart-card { border: 1px solid #d7dbe0; border-radius: 8px; padding: 16px; display: inline-block; }
+      #chart { width: 480px; height: 180px; }
+    </style>
+  </head>
+  <body>
+    <p>这张图只能由脚本画出来：预览若不执行脚本，下面的 canvas 会永远是空的。</p>
+    <div class="chart-card">
+      <canvas id="chart" width="480" height="180"></canvas>
+    </div>
+    <script>
+      (function () {
+        var canvas = document.getElementById('chart');
+        if (canvas === null) return;
+        var context = canvas.getContext('2d');
+        var bars = [
+          { label: '理性设计', value: 50, color: '#C2780A' },
+          { label: '组合库筛选', value: 480, color: '#0E7C86' },
+          { label: 'AI 虚拟筛选', value: 1600000, color: '#16233A' }
+        ];
+        var max = 1600000;
+        var top = 16;
+        var rowHeight = 44;
+        var left = 110;
+        var width = 320;
+        for (var at = 0; at < bars.length; at += 1) {
+          var bar = bars[at];
+          var y = top + at * rowHeight;
+          context.fillStyle = '#5B6B7B';
+          context.font = '13px system-ui, sans-serif';
+          context.textAlign = 'right';
+          context.fillText(bar.label, left - 10, y + 18);
+          context.fillStyle = bar.color;
+          context.fillRect(left, y, Math.max(2, Math.round((bar.value / max) * width)), 24);
+          context.fillStyle = '#1C2A3A';
+          context.textAlign = 'left';
+          context.fillText(String(bar.value), left + Math.round((bar.value / max) * width) + 8, y + 17);
+        }
+        document.documentElement.setAttribute('data-chart-drawn', 'yes');
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <title>HTML 预览样板</title>
+    <link rel="stylesheet" href="sample.css" />
+  </head>
+  <body>
+    <h1>HTML 渲染器样板</h1>
+    <p>这段文字用来验证静态预览：样式来自同目录的 <code>sample.css</code>。</p>
+    <img src="sample.png" alt="同目录图片" width="64" />
+    <script>
+      // 静态预览模式下这段脚本不应执行。
+      document.body.dataset.scriptRan = 'yes';
+    </script>
+  </body>
+</html>

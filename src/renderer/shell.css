@@ -1,0 +1,235 @@
+/*
+ * The shell's own chrome.
+ *
+ * The reader brings its styles inside its bundle, and the theme bundle defines the
+ * `--dsw-*` vocabulary both use. The shell therefore paints itself from those same
+ * tokens — a hardcoded dark chrome would sit as a black frame around a light
+ * document the moment the theme is switched. The values after each comma are the
+ * pre-theme fallbacks, so the window still reads correctly if a token is missing.
+ */
+
+:root {
+  color-scheme: light dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--dsw-alias-bg-base, #ffffff);
+  color: var(--dsw-alias-label-primary, #0f1115);
+  font: var(--dsw-font, 13px/1.5 "Segoe UI", "Microsoft YaHei", system-ui, sans-serif);
+}
+
+/* The window is the document's: a tab strip, then the reader below it. */
+.shell {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  background: var(--dsw-alias-bg-base, #ffffff);
+}
+
+.tabs {
+  display: flex;
+  flex: none;
+  /* One row, never wrapped: a strip that grew taller as documents opened would
+     push the reader down and crowd the chrome. */
+  flex-wrap: nowrap;
+  gap: 2px;
+  padding: 6px 8px 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  border-bottom: 1px solid var(--dsw-alias-border-l2, rgba(0, 0, 0, 0.12));
+  background: var(--dsw-alias-bg-layer-2, #f5f6f7);
+  scrollbar-width: thin;
+}
+
+.tabs:empty {
+  /* With no documents open the strip is only a hairline above the guide. */
+  padding: 0;
+  border-bottom: 0;
+  background: transparent;
+}
+
+.tab {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 6px;
+  max-width: 240px;
+  padding: 5px 8px 6px 10px;
+  border: 1px solid transparent;
+  border-bottom: 0;
+  border-radius: 6px 6px 0 0;
+  color: var(--dsw-alias-label-secondary, #6b7280);
+  cursor: pointer;
+  user-select: none;
+}
+
+.tab--active {
+  border-color: var(--dsw-alias-border-l2, rgba(0, 0, 0, 0.12));
+  background: var(--dsw-alias-bg-base, #ffffff);
+  color: var(--dsw-alias-label-primary, #0f1115);
+}
+
+.tab__title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tab__close {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+.tab__close:hover {
+  opacity: 1;
+}
+
+.body {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.body > * {
+  height: 100%;
+  min-height: 0;
+}
+
+/*
+ * The empty state.
+ *
+ * Metrics are the reader's own guide entry: a 380px card, 26px artwork, a 14px
+ * title over an 11px description, and a hairline border on the layer-1 surface.
+ * Colours come from the design tokens the theme bundle defines, with the shell's
+ * palette as a fallback so the card still reads if a token ever goes missing.
+ */
+.guide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  min-height: 100%;
+  padding: 0 24px;
+}
+
+.guide__entry {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 380px;
+  max-width: 100%;
+  min-height: 56px;
+  padding: 14px 20px;
+  border: 0.5px solid var(--dsw-alias-border-l3, rgba(0, 0, 0, 0.16));
+  border-radius: var(--dsw-radius-xl, 12px);
+  background: var(--dsw-alias-bg-layer-1, #ffffff);
+  color: var(--dsw-alias-label-primary, #0f1115);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.guide__entry:hover {
+  background: var(--dsw-alias-interactive-bg-hover, #f2f3f5);
+}
+
+.guide__icon {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  color: var(--dsw-alias-label-secondary, #6b7280);
+}
+
+.guide__text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.guide__title {
+  overflow: hidden;
+  font-size: 14px;
+  line-height: 1.4;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.guide__description {
+  overflow: hidden;
+  color: var(--dsw-alias-label-tertiary, #9aa3b2);
+  font-size: 11px;
+  line-height: 1.4;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.guide__shortcut {
+  flex: none;
+  color: var(--dsw-alias-label-tertiary, #9aa3b2);
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.guide__hint {
+  margin: 0;
+  color: var(--dsw-alias-label-tertiary, #9aa3b2);
+  font-size: 11px;
+}
+
+.body__error {
+  padding: 20px;
+  color: var(--dsw-alias-label-error, #d33);
+  white-space: pre-wrap;
+}
+
+.body__error pre {
+  font-size: 12px;
+  white-space: pre-wrap;
+}
+
+.boot-screen,
+.boot-failure {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 24px;
+  color: var(--dsw-alias-label-secondary, #6b7280);
+  white-space: pre-wrap;
+}
+
+.boot-screen--failed,
+.boot-failure {
+  color: var(--dsw-alias-label-error, #d33);
+}
+
+.jump-failure {
+  flex: none;
+  padding: 4px 10px;
+  color: var(--dsw-alias-label-error, #d33);
+  font-size: 11px;
+}

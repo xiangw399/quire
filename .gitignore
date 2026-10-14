@@ -1,0 +1,11 @@
+node_modules/
+.npm-cache/
+vendor/
+release/
+runtime/
+dist/
+artifacts/
+*.log
+
+# 内部工程记录：本地保留，不随仓库发布
+notes/
