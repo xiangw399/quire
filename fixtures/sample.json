@@ -1,0 +1,8 @@
+{
+  "note": "JSON renderer fixture",
+  "items": [
+    { "id": 1, "name": "first", "done": true },
+    { "id": 2, "name": "second", "done": false }
+  ],
+  "nested": { "count": 2, "tags": ["alpha", "beta"] }
+}

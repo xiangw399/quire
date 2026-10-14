@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-label="Quire">
+  <!--
+    Quire 的图标矢量源：叠页 + 书签。tools/make-icons.py 画的是同一个几何，
+    改这里之后请重跑那个脚本，让 assets/app.ico 与 assets/icon.png 跟上。
+  -->
+  <defs>
+    <linearGradient id="tile" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1E2B46" />
+      <stop offset="1" stop-color="#111829" />
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="256" height="256" rx="57.6" fill="url(#tile)" />
+  <!-- 三张错开的纸：最后画的在最上面 -->
+  <rect x="46.1" y="67.8" width="112.6" height="133.1" rx="7.7" fill="#DBD8D1" />
+  <rect x="58.9" y="60.9" width="112.6" height="133.1" rx="7.7" fill="#F8F6F1" />
+  <rect x="71.7" y="53.8" width="112.6" height="133.1" rx="7.7" fill="#F8F6F1" />
+  <!-- 纸面文字线 -->
+  <g fill="#CBD1D8">
+    <rect x="87" y="96.4" width="76.5" height="6.7" rx="3.3" />
+    <rect x="87" y="119" width="76.5" height="6.7" rx="3.3" />
+    <rect x="87" y="141.6" width="76.5" height="6.7" rx="3.3" />
+  </g>
+  <!-- 书签 -->
+  <path d="M139.3 53.8 h21 v76.8 l-10.5 -14.1 -10.5 14.1 z" fill="#C67C0C" />
+</svg>
